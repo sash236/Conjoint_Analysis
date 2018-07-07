@@ -1,0 +1,145 @@
+> # load 'conjoint' library
+> library(conjoint)
+
+> data <- read.csv("Dataconjoint.csv", header = TRUE, sep = ","  )
+
+> conj <- read.csv("conjoint.csv", header = TRUE, sep = ","  )
+
+> lev <- c("apple","samsung","other","local","3.5","4,5","5.5","32","64","128","8","12","3","4","5","6","7","8","9")
+
+> lev.df <- data.frame(lev)
+
+> lev <- c("apple","samsung","other","local","3.5in","4.5in","5.5in","32GB","64GB","128GB","8MP","12MP","$299","$399","$499","$599","$699","$799","$89 ..." ... [TRUNCATED] 
+
+> lev.df <- data.frame(lev)
+
+> # Get utilities of each attributes
+> caModel(y=data[1,2:31],x=conj[,6:10]) # For one line only
+
+Call:
+lm(formula = frml)
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+-5.719 -1.470  0.000  1.086  7.170 
+
+Coefficients:
+                       Estimate Std. Error t value Pr(>|t|)    
+(Intercept)             78.4936     1.2690  61.857  < 2e-16 ***
+factor(x$Brand)1        11.1043     2.6075   4.259 0.000687 ***
+factor(x$Brand)2         5.4078     1.2230   4.422 0.000495 ***
+factor(x$Brand)3        -5.6473     1.4379  -3.928 0.001344 ** 
+factor(x$Screen.size)1  -9.5034     3.2873  -2.891 0.011198 *  
+factor(x$Screen.size)2   4.1962     1.9979   2.100 0.053030 .  
+factor(x$Memory)1       -4.4362     1.9453  -2.280 0.037617 *  
+factor(x$Memory)2        2.0819     1.2292   1.694 0.110988    
+factor(x$Camera)1       -1.3950     1.0066  -1.386 0.186037    
+factor(x$Price)1        14.7058     8.1348   1.808 0.090738 .  
+factor(x$Price)2         4.7966     3.7500   1.279 0.220297    
+factor(x$Price)3         0.1251     2.3689   0.053 0.958587    
+factor(x$Price)4        -1.3779     1.7313  -0.796 0.438508    
+factor(x$Price)5        -3.8557     2.4762  -1.557 0.140297    
+factor(x$Price)6        -5.7394     4.1225  -1.392 0.184154    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 3.618 on 15 degrees of freedom
+Multiple R-squared:  0.8863,	Adjusted R-squared:  0.7801 
+F-statistic:  8.35 on 14 and 15 DF,  p-value: 0.0001008
+
+
+> # Conjoint(data[,2:31],conj[,1:5]) # For full model
+> Conjoint(data[,2:31],conj[,6:10],z=lev.df) # For full model
+
+Call:
+lm(formula = frml)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-10,5591  -2,8960  -0,0404   2,8400  11,2535 
+
+Coefficients:
+                       Estimate Std. Error t value Pr(>|t|)    
+(Intercept)            78,37946    0,11143 703,368   <2e-16 ***
+factor(x$Brand)1       11,21894    0,22898  48,995   <2e-16 ***
+factor(x$Brand)2        5,30712    0,10740  49,414   <2e-16 ***
+factor(x$Brand)3       -5,69082    0,12627 -45,069   <2e-16 ***
+factor(x$Screen.size)1 -9,60015    0,28868 -33,256   <2e-16 ***
+factor(x$Screen.size)2  4,20635    0,17545  23,974   <2e-16 ***
+factor(x$Memory)1      -4,43315    0,17083 -25,951   <2e-16 ***
+factor(x$Memory)2       2,11200    0,10795  19,565   <2e-16 ***
+factor(x$Camera)1      -1,41446    0,08839 -16,002   <2e-16 ***
+factor(x$Price)1       14,67022    0,71437  20,536   <2e-16 ***
+factor(x$Price)2        4,64628    0,32931  14,109   <2e-16 ***
+factor(x$Price)3        0,26045    0,20803   1,252    0,211    
+factor(x$Price)4       -1,33590    0,15203  -8,787   <2e-16 ***
+factor(x$Price)5       -3,86032    0,21745 -17,753   <2e-16 ***
+factor(x$Price)6       -5,81291    0,36202 -16,057   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0,001 ‘**’ 0,01 ‘*’ 0,05 ‘.’ 0,1 ‘ ’ 1
+
+Residual standard error: 3,891 on 4485 degrees of freedom
+Multiple R-squared:  0,7727,	Adjusted R-squared:  0,772 
+F-statistic:  1089 on 14 and 4485 DF,  p-value: < 2,2e-16
+
+[1] "Part worths (utilities) of levels (model parameters for whole sample):"
+      levnms     utls
+1  intercept  78,3795
+2      apple  11,2189
+3    samsung   5,3071
+4      other  -5,6908
+5      local -10,8352
+6      3.5in  -9,6002
+7      4.5in   4,2063
+8      5.5in   5,3938
+9       32GB  -4,4331
+10      64GB    2,112
+11     128GB   2,3211
+12       8MP  -1,4145
+13      12MP   1,4145
+14      $299  14,6702
+15      $399   4,6463
+16      $499   0,2604
+17      $599  -1,3359
+18      $699  -3,8603
+19      $799  -5,8129
+20      $899  -8,5678
+[1] "Average importance of factors (attributes):"
+[1] 31,56 21,44 10,85  3,93 32,22
+[1] Sum of average importance:  100
+[1] "Chart of average factors importance"
+
+> #caImportance(data[,2:31],conj[,6:10],z=lev.df)
+> caImportance(data[,2:31],conj[,6:10])
+[1] 31.56 21.44 10.85  3.93 32.22
+
+> caSegmentation(data[,2:31],conj[,6:10],c=3)
+K-means clustering with 3 clusters of sizes 67, 42, 41
+
+Cluster means:
+      [,1]     [,2]     [,3]     [,4]     [,5]     [,6]     [,7]     [,8]     [,9]    [,10]    [,11]    [,12]
+1 86.92128 81.02767 70.70422 70.47563 67.98507 86.37890 87.61137 79.28842 75.64504 78.25373 92.96199 90.33467
+2 87.30138 81.50383 72.59245 70.58960 64.09524 88.02302 88.01560 79.85579 75.94576 76.90476 91.45817 89.47052
+3 85.43415 79.37566 70.97815 70.62817 67.51220 86.69527 87.00605 77.96498 74.94339 78.24390 90.35893 90.13588
+     [,13]    [,14]    [,15]    [,16]    [,17]    [,18]    [,19]    [,20]    [,21]    [,22]    [,23]    [,24]
+1 91.79282 93.18594 79.37836 75.10209 89.15943 80.83645 83.20864 81.24079 89.62687 77.24770 86.33690 75.60476
+2 90.94367 92.37543 79.02993 73.59071 88.66293 80.50310 83.68036 80.02945 91.38095 78.42724 86.78264 75.26869
+3 90.75349 92.25954 78.49885 72.23795 88.15754 79.11651 83.76659 82.00598 89.78049 78.63705 88.31761 74.97212
+     [,25]    [,26]    [,27]    [,28]    [,29]    [,30]
+1 90.13948 75.15664 86.11296 73.51378 88.59148 84.56493
+2 89.57793 75.42474 85.86545 72.26626 88.93064 85.21814
+3 90.51895 74.77988 86.41698 71.11498 89.36734 85.26534
+
+Clustering vector:
+  [1] 1 1 1 1 1 1 1 3 3 3 2 1 3 1 1 3 1 3 2 3 3 2 1 3 2 3 1 3 2 2 1 2 1 3 2 3 3 1 3 1 3 1 3 1 1 1 1 1 3 2 1 1 1 3
+ [55] 1 2 2 3 1 1 1 3 2 1 3 1 2 3 1 3 1 3 1 1 2 2 3 1 2 2 1 2 2 2 1 2 2 2 2 1 1 1 3 2 2 3 1 2 1 1 1 3 3 1 2 1 2 1
+[109] 3 3 2 1 2 2 1 1 1 3 3 2 2 1 1 3 3 2 1 1 3 3 2 2 1 2 2 1 1 3 1 3 2 3 1 2 1 1 1 1 2 1
+
+Within cluster sum of squares by cluster:
+[1] 6904.601 4490.803 4316.082
+ (between_SS / total_SS =  12.0 %)
+
+Available components:
+
+[1] "cluster"      "centers"      "totss"        "withinss"     "tot.withinss" "betweenss"    "size"        
+[8] "iter"         "ifault"   
